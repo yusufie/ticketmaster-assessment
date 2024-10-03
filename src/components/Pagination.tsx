@@ -17,8 +17,8 @@ const Pagination: React.FC = () => {
   };
 
   return (
-    <nav className="flex justify-center py-8">
-      <ul className="flex">
+    <nav className="flex justify-center py-6">
+      <ul className="flex container-shadow">
         <li>
           <button
             onClick={() => handlePageChange(currentPage - 1)}

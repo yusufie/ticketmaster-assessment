@@ -3,17 +3,32 @@ import React from 'react';
 import { useQuery } from '@tanstack/react-query';
 import axios from 'axios';
 import Link from 'next/link';
+import Image from 'next/image';
+import placeholder from "@/lib/assets/images/placeholder.png";
+
 import { useEventStore } from '@/stores/eventStore';
 
 interface Event {
-  name: string;
   id: string;
-  url: string;
-  dates: {
-    start: {
-      localDate: string;
+  name: string;
+  classifications?: {
+    segment?: {
+      name?: string;
+    };
+  }[];
+  dates?: {
+    start?: {
+      localDate?: string;
     };
   };
+  url?: string;
+  priceRanges?: {
+    min?: number;
+    max?: number;
+  }[];
+  images?: {
+    url?: string;
+  }[];
 }
 
 const API_KEY = 'kmMxhmJ3jPYQsevHUrcIVaIdtZ5MnbAu';
@@ -51,19 +66,40 @@ const EventTable: React.FC = () => {
   const events = data?._embedded?.events || [];
 
   return (
-    <section className="overflow-x-auto">
-      <table className="min-w-full bg-gray-600">
+    <section className="overflow-x-auto rounded-lg container-shadow">
+      <table className="min-w-full bg-gray-600 rounded-lg overflow-hidden">
         <thead className="bg-gray-500">
           <tr>
-            <th className="py-1 px-4 text-left">Event Name</th>
+            <th className="py-1 px-4 text-left">Image</th>
+            <th className="py-1 px-4 text-left">Name</th>
+            <th className="py-1 px-4 text-left">Price</th>
+            <th className='py-1 px-4 text-left'>Segment</th>
             <th className="py-1 px-4 text-left">Date</th>
             <th className="py-1 px-4 text-left">Actions</th>
           </tr>
         </thead>
         <tbody>
           {events?.map((event: Event) => (
-            <tr key={event?.id} className="border-b">
-              <td className="py-1 px-4">{event?.name}</td>
+            <tr key={event?.id} className="border-t">
+              <td className="py-1 px-4">
+                <Image
+                  src={event?.images?.[0].url ?? placeholder}
+                  alt={event?.name}
+                  width={24}
+                  height={24}
+                />
+              </td>
+              <td className="py-1 px-4">
+                <div className="max-w-xs overflow-hidden">
+                  <p className="truncate" title={event?.name}>
+                    {event?.name}
+                  </p>
+                </div>
+              </td>
+              <td className="py-1 px-4">
+                {event?.priceRanges?.[0]?.min} - {event?.priceRanges?.[0]?.max}
+              </td>
+              <td className="py-1 px-4">{event?.classifications?.[0]?.segment?.name}</td>
               <td className="py-1 px-4">{event?.dates?.start?.localDate}</td>
               <td className="py-1 px-4">
                 <Link href={`/${event?.id}`} className="text-blue-500 hover:underline mr-4">

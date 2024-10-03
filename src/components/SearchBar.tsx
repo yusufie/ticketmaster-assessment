@@ -12,7 +12,7 @@ const SearchBar: React.FC = () => {
   };
 
   return (
-    <form onSubmit={handleSearch} className="flex">
+    <form onSubmit={handleSearch} className="flex container-shadow">
       <input
         type="text"
         value={localKeyword}

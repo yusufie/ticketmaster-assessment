@@ -20,7 +20,7 @@ const SortBar: React.FC = () => {
   };
 
   return (
-    <div className="flex">
+    <div className="flex items-center">
       <label htmlFor="sort" className="mr-2">Sort by:</label>
       <select
         id="sort"

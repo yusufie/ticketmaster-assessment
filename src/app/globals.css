@@ -4,7 +4,7 @@
 
 body {
   color: #ededed;
-  background: #0a0a0a;
+  background: #001133;
   font-family: Arial, Helvetica, sans-serif;
   display: flex;
   justify-content: center;
@@ -15,4 +15,8 @@ body {
   .text-balance {
     text-wrap: balance;
   }
+}
+
+.container-shadow {
+  @apply shadow-md shadow-gray-700;
 }
