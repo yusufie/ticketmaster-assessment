@@ -9,7 +9,6 @@ type Props = {
 async function DetailPage({ params }: Readonly<Props>) {
 
   const eventId = params?.id;
-  console.log(eventId);
 
   let event_data = null;
 
@@ -18,7 +17,7 @@ async function DetailPage({ params }: Readonly<Props>) {
   }
 
   return (
-    <main className="">
+    <main className="flex items-center justify-center w-full h-full">
       <EventDetails event_data={event_data} />
     </main>
   );
