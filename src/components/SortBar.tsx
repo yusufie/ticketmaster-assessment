@@ -21,12 +21,12 @@ const SortBar: React.FC = () => {
 
   return (
     <div className="flex items-center">
-      <label htmlFor="sort" className="mr-2">Sort by:</label>
+      {/* <label htmlFor="sort" className="mr-2">Sort by:</label> */}
       <select
         id="sort"
         value={sortOption}
         onChange={handleSortChange}
-        className="px-2 py-1 border rounded focus:outline-none focus:ring-2 focus:ring-blue-500 bg-gray-500"
+        className="px-2 py-1 border rounded focus:outline-none focus:ring-2 focus:ring-blue-500 bg-gray-500 container-shadow w-60 md:w-80"
       >
         {sortOptions?.map((option) => (
           <option key={option?.value} value={option?.value}>

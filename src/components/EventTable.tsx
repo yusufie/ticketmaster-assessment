@@ -5,6 +5,7 @@ import axios from 'axios';
 import Link from 'next/link';
 import Image from 'next/image';
 import placeholder from "@/lib/assets/images/placeholder.png";
+import { Icons } from '@/lib/icons';
 
 import { useEventStore } from '@/stores/eventStore';
 
@@ -70,18 +71,18 @@ const EventTable: React.FC = () => {
       <table className="min-w-full bg-gray-600 rounded-lg overflow-hidden">
         <thead className="bg-gray-500">
           <tr>
-            <th className="py-1 px-4 text-left">Image</th>
-            <th className="py-1 px-4 text-left">Name</th>
-            <th className="py-1 px-4 text-left">Price</th>
-            <th className='py-1 px-4 text-left'>Segment</th>
-            <th className="py-1 px-4 text-left">Date</th>
-            <th className="py-1 px-4 text-left">Actions</th>
+            <th className="py-1 px-1 lg:px-4 text-left hidden sm:table-cell">Image</th>
+            <th className="py-1 px-1 lg:px-4 text-left">Name</th>
+            <th className="py-1 px-1 lg:px-4 text-left hidden sm:table-cell">Price</th>
+            <th className='py-1 px-1 lg:px-4 hidden lg:table-cell text-left'>Segment</th>
+            <th className="py-1 px-1 lg:px-4 hidden lg:table-cell text-left">Date</th>
+            <th className="py-1 px-1 lg:px-4 text-left">Actions</th>
           </tr>
         </thead>
         <tbody>
           {events?.map((event: Event) => (
             <tr key={event?.id} className="border-t">
-              <td className="py-1 px-4">
+              <td className="py-1 px-1 lg:px-4 hidden sm:table-cell">
                 <Image
                   src={event?.images?.[0].url ?? placeholder}
                   alt={event?.name}
@@ -89,30 +90,30 @@ const EventTable: React.FC = () => {
                   height={24}
                 />
               </td>
-              <td className="py-1 px-4">
-                <div className="max-w-xs overflow-hidden">
+              <td className="py-1 px-1 lg:px-4">
+                <div className="max-w-40 lg:max-w-80 overflow-hidden">
                   <p className="truncate" title={event?.name}>
                     {event?.name}
                   </p>
                 </div>
               </td>
-              <td className="py-1 px-4">
+              <td className="py-1 px-1 lg:px-4 hidden sm:table-cell">
                 {event?.priceRanges?.[0]?.min} - {event?.priceRanges?.[0]?.max}
               </td>
-              <td className="py-1 px-4">{event?.classifications?.[0]?.segment?.name}</td>
-              <td className="py-1 px-4">{event?.dates?.start?.localDate}</td>
-              <td className="py-1 px-4">
-                <Link href={`/${event?.id}`} className="text-blue-500 hover:underline mr-4">
-                  Details
+              <td className="py-1 px-1 lg:px-4 hidden lg:table-cell">{event?.classifications?.[0]?.segment?.name}</td>
+              <td className="py-1 px-1 lg:px-4 hidden lg:table-cell">{event?.dates?.start?.localDate}</td>
+              <td className="py-1 px-1 lg:px-4 flex gap-4">
+                <Link href={`/${event?.id}`} title='view details'
+                  className="flex items-center text-blue-500 hover:underline"
+                >
+                  <Icons.Lens className="w-4 h-4 text-yellow-600" />
                 </Link>
-                <a
-                  href={event.url}
-                  target="_blank"
-                  rel="noopener noreferrer"
+                <Link href={event?.url ?? '#'} title='buy tickets'
+                  target="_blank" rel="noopener noreferrer"
                   className="text-blue-500 hover:underline"
                 >
-                  Buy
-                </a>
+                  <Icons.Buy className="w-5 h-5 text-green-600" />
+                </Link>
               </td>
             </tr>
           ))}
