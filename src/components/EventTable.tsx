@@ -6,6 +6,7 @@ import Link from 'next/link';
 import Image from 'next/image';
 import placeholder from "@/lib/assets/images/placeholder.png";
 import { Icons } from '@/lib/icons';
+import EventTableSkeleton from '@/components/EventTableSkeleton';
 
 import { useEventStore } from '@/stores/eventStore';
 
@@ -61,7 +62,7 @@ const EventTable: React.FC = () => {
     }
   }, [data, setTotalPages]);
 
-  if (isLoading) return <div>Loading events...</div>;
+  if (isLoading) return <EventTableSkeleton />;
   if (isError) return <div>Error fetching events</div>;
 
   const events = data?._embedded?.events || [];
