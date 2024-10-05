@@ -1,6 +1,6 @@
 
 import { getEvent } from "@/lib/getEvent";
-import EventDetails from "@/components/EventDetails";
+import EventDetails from "@/components/EventDetails/EventDetails";
 
 type Props = {
   params: { id: number }

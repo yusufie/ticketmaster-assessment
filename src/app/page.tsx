@@ -1,7 +1,7 @@
-import SearchBar from "@/components/SearchBar";
-import EventTable from "@/components/EventTable";
-import Pagination from "@/components/Pagination";
-import SortBar from "@/components/SortBar";
+import SearchBar from "@/components/SearchBar/SearchBar";
+import EventTable from "@/components/EventTable/EventTable";
+import Pagination from "@/components/Pagination/Pagination";
+import SortBar from "@/components/SortBar/SortBar";
 
 function HomePage() {
 

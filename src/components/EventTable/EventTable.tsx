@@ -6,37 +6,15 @@ import Link from 'next/link';
 import Image from 'next/image';
 import placeholder from "@/lib/assets/images/placeholder.png";
 import { Icons } from '@/lib/icons';
-import EventTableSkeleton from '@/components/EventTableSkeleton';
-
 import { useEventStore } from '@/stores/eventStore';
+import TableSkeleton from '@/components/TableSkeleton/TableSkeleton';
+import { Event, EventsResponse, FetchEventsParams } from '@/lib/types/EventTable';
 
-interface Event {
-  id: string;
-  name: string;
-  classifications?: {
-    segment?: {
-      name?: string;
-    };
-  }[];
-  dates?: {
-    start?: {
-      localDate?: string;
-    };
-  };
-  url?: string;
-  priceRanges?: {
-    min?: number;
-    max?: number;
-  }[];
-  images?: {
-    url?: string;
-  }[];
-}
 
 const API_KEY = 'kmMxhmJ3jPYQsevHUrcIVaIdtZ5MnbAu';
 
-const fetchEvents = async (page: number, keyword: string, sort: string) => {
-  const response = await axios.get(`https://app.ticketmaster.com/discovery/v2/events.json`, {
+const fetchEvents = async ({page, keyword, sort}: FetchEventsParams): Promise<EventsResponse>  => {
+  const response = await axios.get<EventsResponse>(`https://app.ticketmaster.com/discovery/v2/events.json`, {
     params: {
       apikey: API_KEY,
       page: page - 1,
@@ -51,9 +29,9 @@ const fetchEvents = async (page: number, keyword: string, sort: string) => {
 const EventTable: React.FC = () => {
   const { currentPage, searchKeyword, sortOption, setTotalPages } = useEventStore();
 
-  const { data, isLoading, isError } = useQuery({
+  const { data, isLoading, isError } = useQuery<EventsResponse, Error>({
     queryKey: ['events', currentPage, searchKeyword, sortOption],
-    queryFn: () => fetchEvents(currentPage, searchKeyword, sortOption),
+    queryFn: () => fetchEvents({ page: currentPage, keyword: searchKeyword, sort: sortOption }),
   });
 
   React.useEffect(() => {
@@ -62,7 +40,7 @@ const EventTable: React.FC = () => {
     }
   }, [data, setTotalPages]);
 
-  if (isLoading) return <EventTableSkeleton />;
+  if (isLoading) return <TableSkeleton />;
   if (isError) return <div>Error fetching events</div>;
 
   const events = data?._embedded?.events || [];
