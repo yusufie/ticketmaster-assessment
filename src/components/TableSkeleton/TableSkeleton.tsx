@@ -1,8 +1,7 @@
-import React from 'react';
 
-const EventTableSkeleton: React.FC = () => {
+const TableSkeleton: React.FC = () => {
   return (
-    <div className="overflow-x-auto rounded-lg container-shadow animate-pulse">
+    <div data-testid="event-table-skeleton" className="overflow-x-auto rounded-lg container-shadow animate-pulse">
       <table className="min-w-full bg-gray-600 rounded-lg overflow-hidden">
         <thead className="bg-gray-500">
           <tr>
@@ -58,4 +57,4 @@ const EventTableSkeleton: React.FC = () => {
   );
 };
 
-export default EventTableSkeleton;
+export default TableSkeleton;
