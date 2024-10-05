@@ -113,15 +113,18 @@ const EventDetails: React.FC<DetailsProps> = ({ event_data }) => {
           )}
 
           {attractions && attractions?.length > 0 && (
-            <div className="flex items-center space-x-2">
+            <div className="flex items-start space-x-2">
               <Ticket className="w-5 h-5 text-blue-500" />
               <div>
                 <p className="font-semibold">Featuring:</p>
                 <ul className="list-disc list-inside">
                   {attractions?.map((attraction, index) => (
                     <li key={index}>
-                      <Link href={attraction?.url} target="_blank" rel="noopener noreferrer" className="text-blue-600 hover:underline">
-                        {attraction.name}
+                      <Link href={attraction?.url || '#'} 
+                        target="_blank" rel="noopener noreferrer" 
+                        className="text-blue-600 hover:underline"
+                      >
+                        {attraction?.name}
                       </Link>
                     </li>
                   ))}
@@ -175,9 +178,8 @@ const EventDetails: React.FC<DetailsProps> = ({ event_data }) => {
           )}
 
           <Link
-            href={event_data?.url}
-            target="_blank"
-            rel="noopener noreferrer"
+            href={event_data?.url || '#'}
+            target="_blank" rel="noopener noreferrer"
             className="mt-4 inline-flex items-center space-x-2 bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-600 transition-colors"
           >
             <span>Buy Tickets</span>

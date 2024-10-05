@@ -25,7 +25,7 @@ const Pagination: React.FC = () => {
             disabled={currentPage === 1}
             className="px-3 py-1 bg-gray-200 text-gray-700 rounded-l-lg hover:bg-gray-300 disabled:opacity-50"
           >
-            Previous
+            Prev
           </button>
         </li>
         {pageNumbers.map((number) => (

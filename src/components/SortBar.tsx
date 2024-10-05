@@ -3,7 +3,8 @@ import React from 'react';
 import { useEventStore } from '@/stores/eventStore';
 
 const sortOptions = [
-  { value: 'relevance,desc', label: 'Relevance' },
+  { value: 'relevance,desc', label: 'Relevance (Descending)' },
+  { value: 'relevance,asc', label: 'Relevance (Ascending)' },
   { value: 'name,asc', label: 'Name (A-Z)' },
   { value: 'name,desc', label: 'Name (Z-A)' },
   { value: 'date,asc', label: 'Date (Ascending)' },
@@ -26,7 +27,7 @@ const SortBar: React.FC = () => {
         id="sort"
         value={sortOption}
         onChange={handleSortChange}
-        className="px-2 py-1 border rounded focus:outline-none focus:ring-2 focus:ring-blue-500 bg-gray-500 container-shadow w-60 md:w-80"
+        className="px-2 py-[0.375rem] border rounded focus:outline-none focus:ring-2 focus:ring-blue-500 bg-gray-500 container-shadow w-60 md:w-80"
       >
         {sortOptions?.map((option) => (
           <option key={option?.value} value={option?.value}>
