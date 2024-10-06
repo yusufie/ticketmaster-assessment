@@ -33,11 +33,11 @@ const EventDetails: React.FC<EventDetailsProps> = ({ event_data }) => {
 
           <InfoEvent event_data={event_data} />
 
-          <PleaseNote event_data={event_data} />
-
           <PriceRanges event_data={event_data} />
 
           <TicketLimit event_data={event_data} />
+
+          <PleaseNote event_data={event_data} />
 
           <Accessibility event_data={event_data} />
 

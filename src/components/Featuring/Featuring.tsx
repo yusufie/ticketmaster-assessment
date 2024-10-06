@@ -21,7 +21,7 @@ const Featuring: React.FC<EventDetailsProps> = ({ event_data }) => {
                     href={attraction?.url || "#"}
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="text-blue-600 hover:underline"
+                    className="text-blue-500 hover:underline"
                   >
                     {attraction?.name}
                   </Link>
