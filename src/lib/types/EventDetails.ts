@@ -9,7 +9,7 @@ export interface Venue {
 
 export interface Attraction {
   name: string;
-  url: string;
+  url?: string;
   images: Array<{
     url: string;
     width: number;
@@ -28,8 +28,8 @@ export interface PriceRange {
 export interface EventDetails {
   name: string;
   id: string;
-  url: string;
-  dates: {
+  url?: string;
+  dates?: {
     start: {
       localDate: string;
       localTime: string;
@@ -52,5 +52,5 @@ export interface EventDetails {
 }
 
 export interface EventDetailsProps {
-  event_data: EventDetails;
+  event_data: EventDetails | null;
 }

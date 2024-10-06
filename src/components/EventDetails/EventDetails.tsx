@@ -14,7 +14,7 @@ import TicketBuy from '@/components/TicketBuy/TicketBuy';
 const EventDetails: React.FC<EventDetailsProps> = ({ event_data }) => {
 
   return (
-    <section className="max-w-4xl mx-auto p-4 space-y-6">
+    <section data-testid="event-details-section" className="max-w-4xl mx-auto p-4 space-y-6">
       <Card>
 
         <CardHeader>

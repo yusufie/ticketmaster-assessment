@@ -3,6 +3,7 @@ import { render, screen, waitFor } from '@testing-library/react';
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 import axios from 'axios';
 import EventTable from '@/components/EventTable/EventTable';
+import { NextImage } from '@/lib/types/NextImage';
 import '@testing-library/jest-dom';
 
 // Mock the external dependencies
@@ -10,7 +11,7 @@ jest.mock('axios');
 
 // Mock the next/image component
 jest.mock('next/image', () => {
-  const MockImage = ({ src, alt }: { src: string; alt: string }) => {
+  const MockImage = ({ src, alt }: NextImage) => {
     // eslint-disable-next-line @next/next/no-img-element
     return <img src={src} alt={alt} />;
   };
