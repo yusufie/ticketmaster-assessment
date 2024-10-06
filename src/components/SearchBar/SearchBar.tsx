@@ -1,10 +1,10 @@
 "use client";
-import React, { useState } from 'react';
+import React, { useState, Suspense  } from 'react';
 import { useRouter, useSearchParams } from 'next/navigation';
 import { useEventStore } from '@/stores/eventStore';
 
-const SearchBar: React.FC = () => {
-  
+const SearchForm: React.FC = () => {
+
   const [localKeyword, setLocalKeyword] = useState('');
   const { setSearchKeyword } = useEventStore();
   const router = useRouter();
@@ -47,4 +47,12 @@ const SearchBar: React.FC = () => {
   );
 };
 
+
+function SearchBar() {
+  return (
+    <Suspense>
+      <SearchForm />
+    </Suspense>
+  )
+}
 export default SearchBar;
