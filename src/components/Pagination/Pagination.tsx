@@ -1,9 +1,20 @@
 "use client";
 import React from 'react';
+import { useRouter, useSearchParams } from 'next/navigation';
 import { useEventStore } from '@/stores/eventStore';
 
 const Pagination: React.FC = () => {
+  
+  const router = useRouter();
+  const searchParams = useSearchParams();
   const { currentPage, totalPages, setCurrentPage } = useEventStore();
+
+  React.useEffect(() => {
+    const page = searchParams.get('page');
+    if (page) {
+      setCurrentPage(Number(page));
+    }
+  }, [searchParams, setCurrentPage]);
 
   const pageNumbers = [];
   for (let i = Math.max(1, currentPage - 2); i <= Math.min(totalPages, currentPage + 2); i++) {
@@ -13,6 +24,9 @@ const Pagination: React.FC = () => {
   const handlePageChange = (page: number) => {
     if (page >= 1 && page <= totalPages) {
       setCurrentPage(page);
+      const params = new URLSearchParams(searchParams.toString());
+      params.set('page', page.toString());
+      router.push(`/?${params.toString()}`, { scroll: false });
     }
   };
 

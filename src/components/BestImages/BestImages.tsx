@@ -1,4 +1,5 @@
 import Image from "next/image";
+import Link from "next/link";
 import { Attraction } from "@/lib/types/EventDetails";
 import { EventDetailsProps } from "@/lib/types/EventDetails";
 
@@ -25,13 +26,15 @@ const BestImages: React.FC<EventDetailsProps> = ({ event_data }) => {
             return (
               <div key={index} className="relative h-48 overflow-hidden rounded-lg">
                 {imageUrl ? (
-                  <Image
-                    src={imageUrl}
-                    alt={attraction?.name || ''}
-                    layout="fill"
-                    sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
-                    className="transition-transform duration-300 hover:scale-110 z-10"
-                  />
+                  <Link href={attraction?.url || "#"} target="_blank" rel="noopener noreferrer" >
+                    <Image
+                      src={imageUrl}
+                      alt={attraction?.name || ''}
+                      layout="fill"
+                      sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
+                      className="transition-transform duration-300 hover:scale-110 z-10"
+                    />
+                  </Link>
                 ) : (
                   <div className="w-full h-full bg-gray-200 flex items-center justify-center">
                     <span>No image available</span>

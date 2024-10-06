@@ -10,7 +10,7 @@ const PinMap: React.FC<EventDetailsProps> = ({ event_data }) => {
     <>
       {venue && (
         <div className="flex items-start space-x-2">
-          <MapPin className="w-5 h-5 text-blue-500 mt-1" />
+          <MapPin className="w-5 h-5 text-blue-500" />
           <div>
             <p className="font-semibold">{venue?.name}</p>
             <p>{venue?.address?.line1}</p>

@@ -3,12 +3,19 @@ import { render, screen, fireEvent } from '@testing-library/react';
 import '@testing-library/jest-dom';
 import SortBar from '@/components/SortBar/SortBar';
 import * as eventStoreModule from '@/stores/eventStore';
+import { useRouter, useSearchParams } from 'next/navigation';
 
 // Define the type for our mock store
 type MockStore = {
   sortOption: string;
   setSortOption: (option: string) => void;
 };
+
+// Mock the useRouter and useSearchParams hooks
+jest.mock('next/navigation', () => ({
+  useRouter: jest.fn(),
+  useSearchParams: jest.fn(() => new URLSearchParams()),
+}));
 
 // Create a mock for the entire eventStore module
 jest.mock('@/stores/eventStore', () => ({
@@ -17,6 +24,7 @@ jest.mock('@/stores/eventStore', () => ({
 
 describe('SortBar', () => {
   const mockSetSortOption = jest.fn();
+  const mockPush = jest.fn();
 
   beforeEach(() => {
     jest.clearAllMocks();
@@ -24,6 +32,12 @@ describe('SortBar', () => {
       sortOption: 'relevance,desc',
       setSortOption: mockSetSortOption,
     });
+
+    (useRouter as jest.Mock).mockReturnValue({
+      push: mockPush,
+    });
+
+    (useSearchParams as jest.Mock).mockReturnValue(new URLSearchParams());
   });
 
   it('renders correctly with all sort options', () => {
@@ -55,6 +69,16 @@ describe('SortBar', () => {
     fireEvent.change(select, { target: { value: 'name,asc' } });
 
     expect(mockSetSortOption).toHaveBeenCalledWith('name,asc');
+  });
+
+  it('updates URL when sort option changes', () => {
+    render(<SortBar />);
+    
+    const select = screen.getByRole('combobox');
+    fireEvent.change(select, { target: { value: 'name,asc' } });
+  
+    expect(mockSetSortOption).toHaveBeenCalledWith('name,asc');
+    expect(mockPush).toHaveBeenCalledWith('/?sort=name%2Casc&page=1', { scroll: false });
   });
 
   it('applies correct styles to the select element', () => {

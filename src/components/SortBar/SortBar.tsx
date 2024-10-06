@@ -1,5 +1,6 @@
 "use client";
 import React from 'react';
+import { useRouter, useSearchParams } from 'next/navigation';
 import { useEventStore } from '@/stores/eventStore';
 
 const sortOptions = [
@@ -14,10 +15,26 @@ const sortOptions = [
 ];
 
 const SortBar: React.FC = () => {
+  
   const { sortOption, setSortOption } = useEventStore();
+  const router = useRouter();
+  const searchParams = useSearchParams();
+
+  React.useEffect(() => {
+    const sort = searchParams.get('sort');
+    if (sort && sortOptions.some(option => option.value === sort)) {
+      setSortOption(sort);
+    }
+  }, [searchParams, setSortOption]);
 
   const handleSortChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
-    setSortOption(e.target.value);
+    const newSortOption = e.target.value;
+    setSortOption(newSortOption);
+    
+    const params = new URLSearchParams(searchParams.toString());
+    params.set('sort', newSortOption);
+    params.set('page', '1'); // Reset to first page when changing sort
+    router.push(`/?${params.toString()}`, { scroll: false });
   };
 
   return (
