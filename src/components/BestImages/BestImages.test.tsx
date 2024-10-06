@@ -1,9 +1,11 @@
 import React from 'react';
 import { render, screen } from '@testing-library/react';
-import '@testing-library/jest-dom';
 import BestImages from '@/components/BestImages/BestImages';
 import { EventDetails } from '@/lib/types/EventDetails';
 import { NextImage } from '@/lib/types/NextImage';
+import { NextLink } from '@/lib/types/NextLink';
+import '@testing-library/jest-dom';
+
 
 // Mock Next.js Image component
 jest.mock('next/image', () => ({
@@ -13,6 +15,15 @@ jest.mock('next/image', () => ({
     return <img {...props} data-testid="next-image" alt={props.alt} />;
   },
 }));
+
+jest.mock('next/link', () => ({
+   __esModule: true,
+   default: ({ children, href }: NextLink) => (
+     <a href={href} data-testid="next-link">
+      {children}
+    </a>
+  ),
+ }));
 
 describe('BestImages', () => {
   const mockEventData: EventDetails = {
@@ -47,14 +58,25 @@ describe('BestImages', () => {
     },
   };
 
-  it('renders attractions with images', () => {
+  it('renders attractions with images and links', () => {
     render(<BestImages event_data={mockEventData} />);
     
     const images = screen.getAllByTestId('next-image');
     expect(images).toHaveLength(2);
     
+    const links = screen.getAllByTestId('next-link');
+    expect(links).toHaveLength(2);
+    
     expect(screen.getByText('Attraction 1')).toBeInTheDocument();
     expect(screen.getByText('Attraction 2')).toBeInTheDocument();
+  });
+
+  it('links to correct URLs', () => {
+    render(<BestImages event_data={mockEventData} />);
+    
+    const links = screen.getAllByTestId('next-link');
+    expect(links[0]).toHaveAttribute('href', 'https://test-attraction1.com');
+    expect(links[1]).toHaveAttribute('href', 'https://test-attraction2.com');
   });
 
   it('prefers 3_2 ratio images when available', () => {
@@ -95,5 +117,25 @@ describe('BestImages', () => {
     expect(screen.getByText('Attraction with no images')).toBeInTheDocument();
     expect(screen.getByText('No image available')).toBeInTheDocument();
     expect(screen.queryByTestId('next-image')).not.toBeInTheDocument();
+    expect(screen.queryByTestId('next-link')).not.toBeInTheDocument();
   });
+
+  it('uses "#" as href when attraction URL is missing', () => {
+    const missingUrlEventData = {
+      ...mockEventData,
+      _embedded: {
+        attractions: [
+          {
+            name: 'Attraction with no URL',
+            images: [{ url: 'image.jpg', width: 300, height: 200, ratio: '3_2' }],
+          },
+        ],
+      },
+    };
+    render(<BestImages event_data={missingUrlEventData} />);
+    
+    const link = screen.getByTestId('next-link');
+    expect(link).toHaveAttribute('href', '#');
+  });
+
 });

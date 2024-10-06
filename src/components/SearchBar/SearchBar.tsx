@@ -1,14 +1,31 @@
 "use client";
 import React, { useState } from 'react';
+import { useRouter, useSearchParams } from 'next/navigation';
 import { useEventStore } from '@/stores/eventStore';
 
 const SearchBar: React.FC = () => {
+  
   const [localKeyword, setLocalKeyword] = useState('');
   const { setSearchKeyword } = useEventStore();
+  const router = useRouter();
+  const searchParams = useSearchParams();
+
+  React.useEffect(() => {
+    const keyword = searchParams.get('keyword');
+    if (keyword) {
+      setLocalKeyword(keyword);
+      setSearchKeyword(keyword);
+    }
+  }, [searchParams, setSearchKeyword]);
 
   const handleSearch = (e: React.FormEvent) => {
     e.preventDefault();
     setSearchKeyword(localKeyword);
+    
+    const params = new URLSearchParams(searchParams.toString());
+    params.set('keyword', localKeyword);
+    params.set('page', '1'); // Reset to first page when searching
+    router.push(`/?${params.toString()}`, { scroll: false });
   };
 
   return (

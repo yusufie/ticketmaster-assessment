@@ -1,4 +1,3 @@
-
 import { create } from 'zustand';
 
 interface EventState {
@@ -19,6 +18,6 @@ export const useEventStore = create<EventState>((set) => ({
   sortOption: 'relevance,desc',
   setCurrentPage: (page) => set({ currentPage: page }),
   setTotalPages: (total) => set({ totalPages: total }),
-  setSearchKeyword: (keyword) => set({ searchKeyword: keyword, currentPage: 1 }),
-  setSortOption: (option) => set({ sortOption: option, currentPage: 1 }),
+  setSearchKeyword: (keyword) => set({ searchKeyword: keyword }),
+  setSortOption: (option) => set({ sortOption: option }),
 }));
