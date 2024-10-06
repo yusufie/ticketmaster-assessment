@@ -14,7 +14,7 @@ const PinMap: React.FC<EventDetailsProps> = ({ event_data }) => {
           <div>
             <p className="font-semibold">{venue?.name}</p>
             <p>{venue?.address?.line1}</p>
-            <p>{`${venue?.city?.name}, ${venue?.state?.name}, ${venue?.country?.name}`}</p>
+            <p>{`${venue?.city?.name || ''}, ${venue?.state?.name || ''}, ${venue?.country?.name || ''}`}</p>
           </div>
         </div>
       )}
