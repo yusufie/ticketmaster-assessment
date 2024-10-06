@@ -1,5 +1,5 @@
 "use client";
-import React from 'react';
+import React, { Suspense } from 'react';
 import { useRouter, useSearchParams } from 'next/navigation';
 import { useEventStore } from '@/stores/eventStore';
 
@@ -14,8 +14,8 @@ const sortOptions = [
   { value: 'venueName,desc', label: 'Venue (Z-A)' },
 ];
 
-const SortBar: React.FC = () => {
-  
+const SortSelection: React.FC = () => {
+
   const { sortOption, setSortOption } = useEventStore();
   const router = useRouter();
   const searchParams = useSearchParams();
@@ -56,4 +56,12 @@ const SortBar: React.FC = () => {
   );
 };
 
+
+function SortBar() {
+  return (
+    <Suspense>
+      <SortSelection />
+    </Suspense>
+  )
+}
 export default SortBar;

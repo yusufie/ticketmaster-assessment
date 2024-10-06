@@ -1,9 +1,9 @@
 "use client";
-import React from 'react';
+import React, { Suspense } from 'react';
 import { useRouter, useSearchParams } from 'next/navigation';
 import { useEventStore } from '@/stores/eventStore';
 
-const Pagination: React.FC = () => {
+const PageButtons: React.FC = () => {
   
   const router = useRouter();
   const searchParams = useSearchParams();
@@ -70,4 +70,12 @@ const Pagination: React.FC = () => {
   );
 };
 
+
+function Pagination() {
+  return (
+    <Suspense>
+      <PageButtons />
+    </Suspense>
+  );
+}
 export default Pagination;
