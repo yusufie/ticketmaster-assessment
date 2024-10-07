@@ -4,9 +4,11 @@ import '@testing-library/jest-dom';
 import TicketLimit from '@/components/TicketLimit/TicketLimit';
 import { EventDetails } from '@/lib/types/EventDetails';
 
-// Mock the lucide-react Ticket component
-jest.mock('lucide-react', () => ({
-  Ticket: () => <div data-testid="ticket-icon" />,
+// Mock the Icons component
+jest.mock('@/lib/icons', () => ({
+  Icons: {
+    Ticket: () => <svg data-testid="ticket-icon" />,
+  },
 }));
 
 describe('TicketLimit', () => {
@@ -58,14 +60,13 @@ describe('TicketLimit', () => {
   });
 
   it('applies correct styling to the component', () => {
-    const { container } = render(<TicketLimit event_data={mockEventData} />);
+    render(<TicketLimit event_data={mockEventData} />);
     
-    const containerDiv = container.firstChild as HTMLElement;
+    const containerDiv = screen.getByTestId('ticket-icon').closest('div');
     expect(containerDiv).toHaveClass('flex items-start space-x-2');
 
-    // We can't check the icon's classes directly as it's mocked
-    // Instead, we'll check if the icon is present
-    expect(screen.getByTestId('ticket-icon')).toBeInTheDocument();
+    const ticketIcon = screen.getByTestId('ticket-icon');
+    expect(ticketIcon).toBeInTheDocument();
   });
 
   it('renders correctly with HTML content in ticketLimit.info', () => {

@@ -4,9 +4,11 @@ import '@testing-library/jest-dom';
 import PinMap from '@/components/PinMap/PinMap';
 import { EventDetails } from '@/lib/types/EventDetails';
 
-// Mock the lucide-react MapPin component
-jest.mock('lucide-react', () => ({
-  MapPin: () => <div data-testid="map-pin-icon" />,
+// Mock the Icons component
+jest.mock('@/lib/icons', () => ({
+  Icons: {
+    MapPin: () => <svg data-testid="map-pin-icon" />,
+  },
 }));
 
 describe('PinMap', () => {

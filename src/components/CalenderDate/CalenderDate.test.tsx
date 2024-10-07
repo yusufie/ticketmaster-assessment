@@ -4,9 +4,11 @@ import '@testing-library/jest-dom';
 import CalenderDate from '@/components/CalenderDate/CalenderDate';
 import { EventDetails } from '@/lib/types/EventDetails';
 
-// Mock the lucide-react CalendarDays component
-jest.mock('lucide-react', () => ({
-  CalendarDays: () => <div data-testid="calendar-icon" />,
+// Mock the Icons component
+jest.mock('@/lib/icons', () => ({
+  Icons: {
+    CalendarDays: () => <svg data-testid="calendar-icon" />,
+  },
 }));
 
 describe('CalenderDate', () => {

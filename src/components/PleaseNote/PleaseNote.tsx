@@ -1,4 +1,4 @@
-import { AlertCircle } from "lucide-react";
+import { Icons } from "@/lib/icons";
 import { EventDetailsProps } from "@/lib/types/EventDetails";
 
 const PleaseNote: React.FC<EventDetailsProps> = ({ event_data }) => {
@@ -6,8 +6,8 @@ const PleaseNote: React.FC<EventDetailsProps> = ({ event_data }) => {
     <>
       {event_data?.pleaseNote && (
         <div className="flex items-start space-x-2">
-          <AlertCircle className="w-5 h-5 text-yellow-500" />
-          <p className="text-yellow-700">{event_data?.pleaseNote}</p>
+          <Icons.AlertCircle className="w-5 h-5 text-red-500" />
+          <p className="text-red-500">{event_data?.pleaseNote}</p>
         </div>
       )}
     </>

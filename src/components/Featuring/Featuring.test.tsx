@@ -4,9 +4,11 @@ import '@testing-library/jest-dom';
 import Featuring from '@/components/Featuring/Featuring';
 import { EventDetails, Attraction } from '@/lib/types/EventDetails';
 
-// Mock the lucide-react Ticket component
-jest.mock('lucide-react', () => ({
-  Ticket: () => <div data-testid="ticket-icon" />,
+// Mock the Icons component
+jest.mock('@/lib/icons', () => ({
+  Icons: {
+    Ticket: () => <svg data-testid="ticket-icon" />,
+  },
 }));
 
 // Mock the Next.js Link component

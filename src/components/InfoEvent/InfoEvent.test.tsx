@@ -4,9 +4,11 @@ import '@testing-library/jest-dom';
 import InfoEvent from '@/components/InfoEvent/InfoEvent';
 import { EventDetails } from '@/lib/types/EventDetails';
 
-// Mock the lucide-react Info component
-jest.mock('lucide-react', () => ({
-  Info: () => <div data-testid="info-icon" />,
+// Mock the Icons component
+jest.mock('@/lib/icons', () => ({
+  Icons: {
+    Info: () => <svg data-testid="info-icon" />,
+  },
 }));
 
 describe('InfoEvent', () => {

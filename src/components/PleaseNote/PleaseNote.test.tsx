@@ -4,9 +4,11 @@ import '@testing-library/jest-dom';
 import PleaseNote from '@/components/PleaseNote/PleaseNote';
 import { EventDetails } from '@/lib/types/EventDetails';
 
-// Mock the lucide-react AlertCircle component
-jest.mock('lucide-react', () => ({
-  AlertCircle: () => <div data-testid="alert-circle-icon" />,
+// Mock the Icons component
+jest.mock('@/lib/icons', () => ({
+  Icons: {
+    AlertCircle: () => <svg data-testid="alert-circle-icon" />,
+  },
 }));
 
 describe('PleaseNote', () => {
@@ -32,13 +34,16 @@ describe('PleaseNote', () => {
   });
 
   it('applies correct styling to the component', () => {
-    const { container } = render(<PleaseNote event_data={mockEventData} />);
+    render(<PleaseNote event_data={mockEventData} />);
     
-    const containerDiv = container.firstChild as HTMLElement;
+    const containerDiv = screen.getByTestId('alert-circle-icon').closest('div');
     expect(containerDiv).toHaveClass('flex items-start space-x-2');
 
+    const icon = screen.getByTestId('alert-circle-icon');
+    expect(icon).toBeInTheDocument();
+
     const text = screen.getByText('Please note: This is important information about the event.');
-    expect(text).toHaveClass('text-yellow-700');
+    expect(text).toHaveClass('text-red-500');
   });
 
   it('does not render when event_data is null', () => {

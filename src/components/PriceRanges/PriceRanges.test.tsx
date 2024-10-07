@@ -4,9 +4,11 @@ import '@testing-library/jest-dom';
 import PriceRanges from '@/components/PriceRanges/PriceRanges';
 import { EventDetails, PriceRange } from '@/lib/types/EventDetails';
 
-// Mock the lucide-react DollarSign component
-jest.mock('lucide-react', () => ({
-  DollarSign: () => <div data-testid="dollar-sign-icon" />,
+// Mock the Icons component
+jest.mock('@/lib/icons', () => ({
+  Icons: {
+    DollarSign: () => <svg data-testid="dollar-sign-icon" />,
+  },
 }));
 
 describe('PriceRanges', () => {
@@ -90,6 +92,9 @@ describe('PriceRanges', () => {
     
     const containerDiv = container.firstChild as HTMLElement;
     expect(containerDiv).toHaveClass('flex items-start space-x-2');
+
+    const icon = screen.getByTestId('dollar-sign-icon');
+    expect(icon).toBeInTheDocument();
 
     const priceRangesTitle = screen.getByText('Price Ranges:');
     expect(priceRangesTitle).toHaveClass('font-semibold');

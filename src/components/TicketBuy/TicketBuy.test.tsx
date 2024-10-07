@@ -14,9 +14,11 @@ jest.mock('next/link', () => {
   return MockLink;
 });
 
-// Mock the lucide-react ExternalLink component
-jest.mock('lucide-react', () => ({
-  ExternalLink: () => <div data-testid="external-link-icon" />,
+// Mock the Icons component
+jest.mock('@/lib/icons', () => ({
+  Icons: {
+    ExternalLink: () => <svg data-testid="external-link-icon" />,
+  },
 }));
 
 describe('TicketBuy', () => {
@@ -63,6 +65,9 @@ describe('TicketBuy', () => {
 
   it('applies correct styling to the component', () => {
     render(<TicketBuy event_data={mockEventData} />);
+
+    const icon = screen.getByTestId('external-link-icon');
+    expect(icon).toBeInTheDocument();
     
     const link = screen.getByRole('link', { name: /Buy Tickets/i });
     expect(link).toHaveClass('mt-4 inline-flex items-center space-x-2 bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-600 transition-colors');
