@@ -29,7 +29,7 @@ describe('Card Components', () => {
 
     it('applies default classes', () => {
       const { container } = render(<CardHeader>Header Content</CardHeader>);
-      expect(container.firstChild).toHaveClass('px-6 py-4 border-b border-gray-200');
+      expect(container.firstChild).toHaveClass('px-3 sm:px-6 py-2 sm:py-4 border-b border-gray-400');
     });
 
     it('applies custom classes', () => {
@@ -46,7 +46,7 @@ describe('Card Components', () => {
 
     it('applies default classes', () => {
       const { container } = render(<CardContent>Content</CardContent>);
-      expect(container.firstChild).toHaveClass('px-6 py-4');
+      expect(container.firstChild).toHaveClass('px-3 sm:px-6 py-2 sm:py-4');
     });
 
     it('applies custom classes', () => {
@@ -63,7 +63,7 @@ describe('Card Components', () => {
 
     it('applies default classes', () => {
       const { container } = render(<CardTitle>Card Title</CardTitle>);
-      expect(container.firstChild).toHaveClass('text-xl font-semibold');
+      expect(container.firstChild).toHaveClass('font-semibold');
     });
 
     it('applies custom classes', () => {

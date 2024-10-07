@@ -20,7 +20,7 @@ interface CardHeaderProps {
 
 export const CardHeader: React.FC<CardHeaderProps> = ({ children, className = '' }) => {
   return (
-    <div className={`px-6 py-4 border-b border-gray-200 ${className}`}>
+    <div className={`px-3 sm:px-6 py-2 sm:py-4 border-b border-gray-400 ${className}`}>
       {children}
     </div>
   );
@@ -33,7 +33,7 @@ interface CardContentProps {
 
 export const CardContent: React.FC<CardContentProps> = ({ children, className = '' }) => {
   return (
-    <div className={`px-6 py-4 ${className}`}>
+    <div className={`px-3 sm:px-6 py-2 sm:py-4 ${className}`}>
       {children}
     </div>
   );
@@ -41,7 +41,7 @@ export const CardContent: React.FC<CardContentProps> = ({ children, className = 
 
 export const CardTitle: React.FC<CardProps> = ({ children, className = '' }) => {
   return (
-    <h2 className={`text-xl font-semibold ${className}`}>
+    <h2 className={`font-semibold ${className}`}>
       {children}
     </h2>
   );

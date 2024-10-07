@@ -13,7 +13,7 @@ function HomePage() {
           <SortBar />
         </header>
 
-        <main className="flex flex-col w-full max-w-screen-2xl px-6">
+        <main className="flex flex-col w-full max-w-screen-2xl sm:px-6 px-3">
           <EventTable />
           <Pagination />
         </main>

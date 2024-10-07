@@ -60,7 +60,7 @@ const EventTable: React.FC = () => {
         </thead>
         <tbody>
           {events?.map((event: Event) => (
-            <tr key={event?.id} className="border-t">
+            <tr key={event?.id} className="border-t border-gray-400">
               <td className="py-1 px-1 lg:px-4 hidden sm:table-cell">
                 <Image
                   src={event?.images?.[0].url ?? placeholder}
@@ -83,15 +83,15 @@ const EventTable: React.FC = () => {
               <td className="py-1 px-1 lg:px-4 hidden lg:table-cell">{event?.dates?.start?.localDate}</td>
               <td className="py-1 px-1 lg:px-4 flex gap-4">
                 <Link href={`/${event?.id}`} title='view details'
-                  className="flex items-center text-blue-500 hover:underline"
+                  className="flex items-center"
                 >
-                  <Icons.Lens className="w-4 h-4 text-yellow-600" />
+                  <Icons.Lens className="w-4 h-4 text-yellow-600 transform transition-transform duration-100 hover:scale-125" />
                 </Link>
                 <Link href={event?.url ?? '#'} title='buy tickets'
                   target="_blank" rel="noopener noreferrer"
-                  className="text-blue-500 hover:underline"
+                  className="flex items-center"
                 >
-                  <Icons.Buy className="w-5 h-5 text-green-600" />
+                  <Icons.Buy className="w-5 h-5 text-green-600 transform transition-transform duration-100 hover:scale-125" />
                 </Link>
               </td>
             </tr>

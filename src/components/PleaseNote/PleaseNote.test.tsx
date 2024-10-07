@@ -43,7 +43,7 @@ describe('PleaseNote', () => {
     expect(icon).toBeInTheDocument();
 
     const text = screen.getByText('Please note: This is important information about the event.');
-    expect(text).toHaveClass('text-red-500');
+    expect(text).toHaveClass('break-words break-all whitespace-pre-line text-red-500');
   });
 
   it('does not render when event_data is null', () => {

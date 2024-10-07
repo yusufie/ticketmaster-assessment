@@ -27,7 +27,7 @@ const TableSkeleton: React.FC = () => {
         </thead>
         <tbody>
           {[...Array(20)].map((_, index) => (
-            <tr key={index} className="border-t">
+            <tr key={index} className="border-t border-gray-400">
               <td className="py-1 px-1 lg:px-4 hidden sm:table-cell">
                 <div className="h-6 w-6 bg-gray-400 rounded"></div>
               </td>
